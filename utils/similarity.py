@@ -67,14 +67,14 @@ __all__ = ("UserSimilarity", )
 def UserSimilarity(train):
     """
     Description::
-    
+
     :param train: 用户-物品评分记录训练字典
     :return : 用户之间的相似度矩阵
-    
+
     Usage::
-    
+
     """
-    
+
     # build inverse table for item_users
     item_users = dict()
     for u, items in train.items():
@@ -97,5 +97,25 @@ def UserSimilarity(train):
     for u, related_users in C.items():
         for v, cuv in related_users.items():
             W[u][v] = cuv / math.sqrt(N[u] * N[v])
-    
+
+    return W
+
+
+def ItemSimilarity(train):
+    # calculate co-rated users between items
+    C = dict()
+    N = dict()
+    for u, items in train.items():
+        for i in items:
+            N[i] += 1
+            for j in items:
+                if i == j:
+                    continue
+                C[i][j] += 1
+    # calculate finial similarity matrix w
+    W = dict()
+    for i, related_items in C.items():
+        for j, cij in related_items.items():
+            W[i][j] = cij / math.sqrt(N[i]*N[j])
+
     return W
