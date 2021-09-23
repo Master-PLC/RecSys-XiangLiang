@@ -14,7 +14,7 @@ __all__ = ("UserCF", )
 
 
 class UserCF(object):
-    def __init__(self, K) -> None:
+    def __init__(self, K: int = 80) -> None:
         super().__init__()
         self.K = K
 
