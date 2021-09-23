@@ -101,7 +101,49 @@ def UserSimilarity(train):
     return W
 
 
+# 一些过于活跃的用户对物品相似度会产生负面贡献
+# def ItemSimilarity(train):
+#     """
+#     Description::
+
+#     :param :
+#     :return :
+
+#     Usage::
+
+#     """
+
+#     # calculate co-rated users between items
+#     C = dict()
+#     N = dict()
+#     for u, items in train.items():
+#         for i in items:
+#             N[i] += 1
+#             for j in items:
+#                 if i == j:
+#                     continue
+#                 C[i][j] += 1
+#     # calculate finial similarity matrix w
+#     W = dict()
+#     for i, related_items in C.items():
+#         for j, cij in related_items.items():
+#             W[i][j] = cij / math.sqrt(N[i]*N[j])
+
+#     return W
+
+
 def ItemSimilarity(train):
+    """
+    Description::
+    为item_iuf模型生成物品相似度
+    
+    :param :
+    :return :
+    
+    Usage::
+    
+    """
+    
     # calculate co-rated users between items
     C = dict()
     N = dict()
@@ -111,11 +153,11 @@ def ItemSimilarity(train):
             for j in items:
                 if i == j:
                     continue
-                C[i][j] += 1
-    # calculate finial similarity matrix w
+                C[i][j] += 1 / math.log(1 + len(items) * 1.0)
+    # calculate finial similarity matrix W
     W = dict()
     for i, related_items in C.items():
         for j, cij in related_items.items():
-            W[i][j] = cij / math.sqrt(N[i]*N[j])
+            W[i][j] = cij / math.sqrt(N[i] * N[j])
 
     return W
