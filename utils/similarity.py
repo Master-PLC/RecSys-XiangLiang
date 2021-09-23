@@ -132,18 +132,19 @@ def UserSimilarity(train):
 #     return W
 
 
-def ItemSimilarity(train):
+# 某些特别热门的物品将影响相似度的计算，如哈利波特，需要加大流行物品的惩罚项
+def ItemSimilarity(train, alpha: float = 0.5):
     """
     Description::
     为item_iuf模型生成物品相似度
-    
+
     :param :
     :return :
-    
+
     Usage::
-    
+
     """
-    
+
     # calculate co-rated users between items
     C = dict()
     N = dict()
@@ -158,6 +159,6 @@ def ItemSimilarity(train):
     W = dict()
     for i, related_items in C.items():
         for j, cij in related_items.items():
-            W[i][j] = cij / math.sqrt(N[i] * N[j])
+            W[i][j] = cij / (math.pow(N[i], 1-alpha) * math.pow(N[j], alpha))
 
     return W
