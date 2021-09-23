@@ -10,13 +10,19 @@
 
 import random
 
+__all__ = ("SplitData", )
+
 
 def SplitData(data, M, k, seed):
     """
     Description::
+    将数据集随机分成训练集和测试集
 
-    :param :
-    :return :
+    :param data: 原始用户-物品评分记录数据
+    :param M: 实验总次数
+    :param k: 第k次实验
+    :param seed: 随机数种子
+    :return : 返回用户-物品评分记录训练数据集和测试数据集
 
     Usage::
 

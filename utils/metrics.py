@@ -10,6 +10,8 @@
 
 import math
 
+__all__ = ("Recall", "Precision", "Coverage", "Popularity", )
+
 
 def Recall(train, test, N):
     """
@@ -20,11 +22,11 @@ def Recall(train, test, N):
     :param test: 用户-物品评分记录测试字典
     :param N: 推荐物品个数
     :return : 返回召回率
-    
+
     Usage::
-    
+
     """
-    
+
     hit = 0
     all = 0
     for user in train.keys():
