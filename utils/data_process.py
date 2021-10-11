@@ -38,3 +38,30 @@ def SplitData(data, M, k, seed):
             train.append([user, item])
 
     return train, test
+
+
+def RandomSelectNegativeSample(items, items_pool):
+    """
+    Description::
+    
+    :param :
+    :return :
+    
+    Usage::
+    
+    """
+    
+    ret = dict()
+    for i in items.keys():
+        ret[i] = 1
+    n = 0
+    for i in range(0, len(items) * 3):
+        item = items_pool[random.randint(0, len(items_pool) - 1)]
+        if item in ret:
+            continue
+        ret[item] = 0
+        n += 1
+        if n > len(items):
+            break
+
+    return ret
